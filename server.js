@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
-const functionsRouter = require("./routes/functionSelector");
+//const functionsRouter = require("./routes/functionSelector");
 
 /*----- Express App ------*/
 const app = express();
@@ -19,7 +19,7 @@ app.get("/", function (req, res) {
     res.json({ serverStatus: "Online" });
   });
 
-app.use("/functions", functionRouter);
+//app.use("/functions", functionRouter);
 
 /*----- Listener ------*/
 app.listen(PORT, function () {

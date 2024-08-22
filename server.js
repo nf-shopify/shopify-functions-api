@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
-//const functionsRouter = require("./routes/functionSelector");
+const functionsRouter = require("./routes/functions");
 
 /*----- Express App ------*/
 const app = express();
@@ -16,10 +16,10 @@ app.use(logger("dev"));
 
 /*----- Routes ------*/
 app.get("/", function (req, res) {
-    res.json({ serverStatus: "Online" });
+    res.json({ serverStatus: "It's alive" });
   });
 
-//app.use("/functions", functionRouter);
+app.use("/functions", functionsRouter);
 
 /*----- Listener ------*/
 app.listen(PORT, function () {

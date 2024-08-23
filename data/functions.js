@@ -59,7 +59,7 @@ module.exports = [
       {
         scenarioName:
           "Single Location : Local Pickup will only display 1 option",
-        scenarioUrl: "singleLoction",
+        scenarioEndpoint: "singleLoction",
         display: true,
         samplePayload: {
           cart: {

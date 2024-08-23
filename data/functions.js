@@ -57,8 +57,7 @@ module.exports = [
     display: true,
     scenarios: [
       {
-        scenarioName:
-          "Single Location : Local Pickup will only display 1 option",
+        scenarioName: "Single Location : Local Pickup will only display 1 option",
         scenarioEndpoint: "singleLoction",
         display: true,
         samplePayload: {

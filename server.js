@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
 const functionsRouter = require("./routes/functions");
+const cartValidationRouter = require("./routes/cartValidation");
 
 /*----- Express App ------*/
 const app = express();
@@ -13,6 +14,8 @@ const PORT = process.env.PORT || 8000;
 /*----- Middleware Pipe ------*/
 app.use(cors());
 app.use(logger("dev"));
+// needed for POST/PUT request
+app.use(express.json())
 
 /*----- Routes ------*/
 app.get("/", function (req, res) {
@@ -20,6 +23,7 @@ app.get("/", function (req, res) {
   });
 
 app.use("/functions", functionsRouter);
+app.use("/cartvalidation", cartValidationRouter);
 
 /*----- Listener ------*/
 app.listen(PORT, function () {

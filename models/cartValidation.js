@@ -4,6 +4,10 @@ module.exports = {
   minMaxValidate,
 };
 
+/*----- Global Variables ------*/
+const MIN_ORDER_QUANTITY = 2;
+const MAX_ORDER_QUANTITY = 5;
+
 function status() {
   return { endpointStatus: "Online" };
 }
@@ -13,23 +17,21 @@ function minMaxValidate(input) {
     return { error: "No cart or lines found in request body" };
   }
   const { lines } = input.cart;
-  const res = lines.reduce((minMaxError, line) => {
-    const minOrderQuantity = 2;
-    const maxOrderQuantity = 5;
-    console.log(line);
-    if (line?.quantity < minOrderQuantity) {
-      minMaxError.push({
-        localizedMessage: `Sorry, the minimum order quantity for ${line?.merchandise?.title} is ${minOrderQuantity}`,
+  const errors = lines.reduce((error, line) => {
+    if (line?.quantity < MIN_ORDER_QUANTITY) {
+      error.push({
+        localizedMessage: `Sorry, the minimum order quantity for ${line?.merchandise?.title} is ${MIN_ORDER_QUANTITY}`,
         target: "cart",
       });
-    } else if (line?.quantity > maxOrderQuantity) {
-      minMaxError.push({
-        localizedMessage: `Sorry, the maximum order quantity for ${line?.merchandise?.title} is ${maxOrderQuantity}`,
+    } else if (line?.quantity > MAX_ORDER_QUANTITY) {
+      error.push({
+        localizedMessage: `Sorry, the maximum order quantity for ${line?.merchandise?.title} is ${MAX_ORDER_QUANTITY}`,
         target: "cart",
       });
     }
-    return minMaxError;
+    return error;
   }, []);
-  console.log(res);
-  return res;
+
+  if (errors.length) return errors;
+  return { cartValidationStatus: "No Errors" };
 }

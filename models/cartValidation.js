@@ -2,6 +2,7 @@
 module.exports = {
   status,
   minMaxValidate,
+  vipTagValidate
 };
 
 /*----- Global Variables ------*/
@@ -17,6 +18,7 @@ function minMaxValidate(input) {
     return { error: "No cart or lines found in request body" };
   }
   const { lines } = input.cart;
+  console.log(lines)
   const errors = lines.reduce((error, line) => {
     if (line?.quantity < MIN_ORDER_QUANTITY) {
       error.push({
@@ -35,3 +37,7 @@ function minMaxValidate(input) {
   if (errors.length) return errors;
   return { cartValidationStatus: "No Errors" };
 }
+
+function vipTagValidate() {
+    return { endpointStatus: "Online" };
+  }

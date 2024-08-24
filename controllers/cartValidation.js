@@ -4,7 +4,8 @@ const cartValidationModel = require("../models/cartValidation");
 /*----- Exports ------*/
 module.exports = {
   status,
-  minMax
+  minMax,
+  vipTag
 };
 
 /*----- Functions ------*/
@@ -14,8 +15,16 @@ function status(req, res) {
 }
 
 function minMax(req, res) {
-  console.log(req.body);
   validationRes = cartValidationModel.minMaxValidate(req.body)
+  if (validationRes.error){
+    res.status(422).json(validationRes);
+  } else {
+    res.json(validationRes)
+  }
+}
+
+function vipTag(req, res) {
+  validationRes = cartValidationModel.vipTagValidate(req.body)
   if (validationRes.error){
     res.status(422).json(validationRes);
   } else {

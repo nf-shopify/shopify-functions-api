@@ -32,7 +32,7 @@ module.exports = [
       },
       {
         scenarioName: "VIP Customer : Customer has VIP tag",
-        scenarioEndpoint: "vipCustomer",
+        scenarioEndpoint: "vipTag",
         display: true,
         samplePayload: {
           cart: {

@@ -13,17 +13,17 @@ module.exports = [
           cart: {
             lines: [
               {
-                quantity: 2,
+                quantity: 1,
                 merchandise: {
                   id: "gid://shopify/ProductVariant/49178510983471",
-                  title: "Min Max Quantity - Checkout Validation",
+                  title: "Super Star T Shirt",
                 },
               },
               {
-                quantity: 1,
+                quantity: 2,
                 merchandise: {
                   id: "gid://shopify/ProductVariant/50310723371311",
-                  title: "Oversized Pickup - Local Pickup",
+                  title: "Super Running Shoes",
                 },
               },
             ],

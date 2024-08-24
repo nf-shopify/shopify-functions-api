@@ -16,7 +16,11 @@ function status(req, res) {
 function minMax(req, res) {
   console.log(req.body);
   validationRes = cartValidationModel.minMaxValidate(req.body)
-  res.json(validationRes);
+  if (validationRes.error){
+    res.status(422).json(validationRes);
+  } else {
+    res.json(validationRes)
+  }
 }
 
 

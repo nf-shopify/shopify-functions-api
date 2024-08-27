@@ -13,6 +13,5 @@ router.post("/minmax", cartValidationCtrl.minMax);
 // /cartValidation/activeMember
 router.post("/activemember", cartValidationCtrl.activeMember);
 
-
 /*----- Exports ------*/
 module.exports = router;

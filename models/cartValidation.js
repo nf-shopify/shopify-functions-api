@@ -2,7 +2,7 @@
 module.exports = {
   status,
   minMaxValidate,
-  vipTagValidate
+  activeMemberValidate,
 };
 
 /*----- Global Variables ------*/
@@ -14,11 +14,12 @@ function status() {
 }
 
 function minMaxValidate(input) {
-  if (!input.cart || !input.cart.lines) {
-    return { error: "No cart or lines found in request body" };
+  if (!input?.cart || !input?.cart?.lines[0]?.quantity) {
+    return { error: "Missing required object or field in JSON body" };
   }
-  const { lines } = input.cart;
-  console.log(lines)
+  const { lines } = input?.cart;
+  console.log("********** Min Max Validate - Cart Lines ********** ");
+  console.log(lines);
   const errors = lines.reduce((error, line) => {
     if (line?.quantity < MIN_ORDER_QUANTITY) {
       error.push({
@@ -34,10 +35,45 @@ function minMaxValidate(input) {
     return error;
   }, []);
 
-  if (errors.length) return errors;
-  return { cartValidationStatus: "No Errors" };
+  return { errors: errors };
 }
 
-function vipTagValidate() {
-    return { endpointStatus: "Online" };
+function activeMemberValidate(input) {
+  if (
+    !input?.cart ||
+    !input?.cart?.buyerIdentity?.customer?.memberIdMetafield
+  ) {
+    return {
+      error: "Missing required object or field in JSON body",
+    };
   }
+  const { buyerIdentity } = input?.cart;
+  const errors = [];
+  const randomBoolean = Math.random() < 0.5;
+  if (!buyerIdentity?.isAuthenticated) {
+    errors.push({
+      localizedMessage:
+        "You must be authenticated to add items to cart or checkout",
+      target: "cart",
+    });
+    return { errors: errors };
+  }
+  if (!buyerIdentity?.customer?.memberIdMetafield?.value) {
+    console.log(buyerIdentity?.customer?.memberIdMetafield?.value);
+    errors.push({
+      localizedMessage: "You must be a member to add items to cart",
+      target: "cart",
+    });
+    return { errors: errors };
+  }
+  if (buyerIdentity?.customer?.memberIdMetafield?.value && !randomBoolean) {
+    errors.push({
+      localizedMessage:
+        "Your membership has expired. You will need to renew your membership to checkout",
+      target: "cart",
+    });
+    return { errors: errors };
+  }
+
+  return { errors: errors };
+}

@@ -10,8 +10,8 @@ router.get("/", cartValidationCtrl.status);
 // /cartValidation/minMax
 router.post("/minmax", cartValidationCtrl.minMax);
 
-// /cartValidation/vipTag
-router.post("/viptag", cartValidationCtrl.vipTag);
+// /cartValidation/activeMember
+router.post("/activemember", cartValidationCtrl.activeMember);
 
 
 /*----- Exports ------*/
